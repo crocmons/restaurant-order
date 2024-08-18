@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration for SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordersitem.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///order_items.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -71,7 +71,7 @@ def delete_item(id):
     item = OrderItem.query.get_or_404(id)
     db.session.delete(item)
     db.session.commit()
-    return jsonify({'message': 'Pantry item deleted successfully!'})
+    return jsonify({'message': 'Order deleted successfully!'})
 
 # Main entry point
 # if __name__ == '__main__':
