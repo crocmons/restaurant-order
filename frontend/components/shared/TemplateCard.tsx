@@ -15,8 +15,22 @@ const TemplateCard = (item: TEMPLATE) => {
   const [orderName, setOrderName] = useState('')
   const [quantity, setQuantity] = useState(0)
   const [dateAdded, setDateAdded] = useState('')
+  const [loading, setLoading] = useState(false)  
+  const [error, setError] = useState<string | null>(null)
+
+  const validateForm = () => {
+    if (!customerName || !orderName || !quantity || !dateAdded) {
+      setError('All fields are required.')
+      return false
+    }
+    setError(null)
+    return true
+  }
 
   const handleClick = async () => {
+    if (!validateForm()) return;
+
+    setLoading(true)
     const orderData = {
       customer_name: customerName,
       quantity: quantity,
@@ -41,6 +55,8 @@ const TemplateCard = (item: TEMPLATE) => {
       }
     } catch (error) {
       console.error('Error:', error)
+    }finally {
+      setLoading(false)  
     }
   }
 
@@ -123,9 +139,10 @@ const TemplateCard = (item: TEMPLATE) => {
               />
             </div>
           </div>
+            {error && <p className="text-red-500 text-center">{error}</p>}
           <DialogFooter>
-            <Button type="submit" onClick={handleClick}>
-              Place Order
+          <Button type="submit" onClick={handleClick} disabled={loading}>
+              {loading ? 'Placing Order...' : 'Place Order'}
             </Button>
           </DialogFooter>
         </DialogContent>
