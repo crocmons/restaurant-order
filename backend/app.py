@@ -74,5 +74,5 @@ def delete_item(id):
     return jsonify({'message': 'Pantry item deleted successfully!'})
 
 # Main entry point
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)

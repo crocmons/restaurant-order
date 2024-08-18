@@ -9,3 +9,4 @@ langchain
 groq
 ipython
 flask_sqlalchemy
+Gunicorn
