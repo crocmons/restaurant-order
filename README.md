@@ -104,14 +104,3 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [your-username](https://github.com/your-username)
-
----
-
-Replace placeholders like `your-username`, `your-email@example.com`, and repository URLs with your actual details. This README template covers project features, setup instructions, technologies used, and more, making it easy for others to understand and contribute to your project.
