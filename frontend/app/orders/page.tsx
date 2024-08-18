@@ -30,7 +30,7 @@ const OrdersGrid = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/orders')
+        const response = await axios.get('https://restaurant-order-2q76.onrender.com/orders')
         setOrders(response.data)
       } catch (err) {
         setError('Failed to fetch orders')
