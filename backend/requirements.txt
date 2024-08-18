@@ -1,0 +1,11 @@
+# google-generativeai
+python-dotenv
+pathlib
+flask
+flask_cors
+langchain_groq
+langchain_core
+langchain
+groq
+ipython
+flask_sqlalchemy
