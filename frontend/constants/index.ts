@@ -13,11 +13,7 @@ export const navLinks = [
       icon: History,
     },
     
-    {
-      label: "Billing",
-      route: "/billing",
-      icon: CreditCard,
-    },
+  
     
     
     
