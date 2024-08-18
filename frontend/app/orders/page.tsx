@@ -83,7 +83,7 @@ const OrdersGrid = () => {
   }
 
   return (
-    <TableContainer component={Paper} className="justify-center items-center mx-auto">
+    <TableContainer component={Paper} className="flex  flex-col justify-center items-center mx-auto">
       <Table stickyHeader aria-label="sticky table">
         <TableHead className="text-gray-400 items-center">
           <TableRow>
@@ -119,9 +119,9 @@ const OrdersGrid = () => {
                 <TableCell align="left" className="text-md text-black">{order.date_added}</TableCell>
                 <TableCell align="left" className="text-md">
                   <Stack spacing={2} direction="row">
-                       <Button onClick={handleClick} className='py-4 px-5 bg-red-500 text-white hover:bg-blue-600'>
-                         Pay
-                       </Button>
+                       <Link href={'https://buy.stripe.com/test_bIY8zWflf9j96oUbII'} className='py-4 px-5 bg-red-500 text-white hover:bg-blue-600 rounded-md'>
+                         Pay Now
+                       </Link>
                   </Stack>
                 </TableCell>
               </TableRow>

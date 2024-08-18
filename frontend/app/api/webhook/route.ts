@@ -19,9 +19,7 @@ export async function POST(req: NextRequest) {
     );
 
     console.log("Event", event?.type);
-    // charge.succeeded
-    // payment_intent.succeeded
-    // payment_intent.created
+    
 
     console.log(
       res?.data?.object?.billing_details?.email, // email
