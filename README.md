@@ -69,7 +69,11 @@ This project is a **Restaurant Order Management System** built using modern web 
    - create the virtual env -
      ```bash
      conda create -p venv python==3.12 -y
-     
+
+    - conda activate -
+     ```bash
+     conda activate
+  
    - Install the Python dependencies:
 
      ```bash
