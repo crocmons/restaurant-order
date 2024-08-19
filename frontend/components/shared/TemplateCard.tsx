@@ -61,7 +61,7 @@ const TemplateCard = (item: TEMPLATE) => {
   }
 
   return (
-    <div className='p-4 rounded-lg shadow-lg flex flex-col cursor-pointer gap-5 hover:scale-105 transition-all'>
+    <div className='mx-auto p-3 md:p-4 rounded-lg shadow-lg flex flex-col cursor-pointer gap-2 md:gap-5 hover:scale-105 transition-all min-w-full md:w-full'>
       <Image
         src={item.icon}
         alt={item.name}
@@ -69,12 +69,13 @@ const TemplateCard = (item: TEMPLATE) => {
         height={340}
         className='object-contain'
       />
-      <h2 className='font-medium text-lg'>{item.name}</h2>
+      <h2 className='font-medium text-sm md:text-lg'>{item.name}</h2>
+      <p className='text-gray-500 font-bold'>${item.price}</p>
       <p className='text-gray-500 line-clamp-3'>{item.desc}</p>
       
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className='bg-orange-500 cursor-pointer font-medium text-white hover:bg-blue-500 hover:text-white'>
+          <Button variant="outline" className='bg-orange-500 cursor-pointer font-medium text-white hover:bg-blue-500 hover:text-white '>
             Order Now
           </Button>
         </DialogTrigger>

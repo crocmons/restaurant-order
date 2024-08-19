@@ -5,6 +5,7 @@ import TemplateCard from './TemplateCard';
 export interface TEMPLATE{
     name: string;
     desc: string;
+    price: string;
     category: string;
     icon: string;
     
