@@ -9,15 +9,16 @@ import { Label } from '@/components/ui/label'
 
 const TemplateCard = (item: TEMPLATE) => {
   const [customerName, setCustomerName] = useState('')
-  const [orderName, setOrderName] = useState('')
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1) // Default quantity to 1
   const [dateAdded, setDateAdded] = useState('')
-  const [price, setPrice] = useState('') // New state for price
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const orderName = item.name; // Static order name from the item
+  const price = Number(item.price).toFixed(2); // Ensure price is a number, then format it to 2 decimal places
+
   const validateForm = () => {
-    if (!customerName || !orderName || !quantity || !dateAdded || !price) {  // Validate price as well
+    if (!customerName || !quantity || !dateAdded) {
       setError('All fields are required.')
       return false
     }
@@ -30,7 +31,7 @@ const TemplateCard = (item: TEMPLATE) => {
 
     setLoading(true);
 
-    const priceInCents = Math.round(parseFloat(price) * 100); // Convert price to cents for stripe payment
+    const priceInCents = Math.round(Number(price) * 100); // Convert price to cents for Stripe payment
 
     const orderData = {
         customer_name: customerName,
@@ -63,7 +64,6 @@ const TemplateCard = (item: TEMPLATE) => {
     }
 };
 
-  
   return (
     <div className='mx-auto p-3 md:p-4 rounded-lg shadow-lg flex flex-col cursor-pointer gap-2 md:gap-5 hover:scale-105 transition-all min-w-full md:w-full'>
       <Image
@@ -74,7 +74,7 @@ const TemplateCard = (item: TEMPLATE) => {
         className='object-contain'
       />
       <h2 className='font-medium text-sm md:text-lg'>{item.name}</h2>
-      <p className='text-gray-500 font-bold'>${item.price}</p>
+      <p className='text-gray-500 font-bold'>${price}</p>
       <p className='text-gray-500 line-clamp-3'>{item.desc}</p>
       
       <Dialog>
@@ -111,10 +111,9 @@ const TemplateCard = (item: TEMPLATE) => {
               <Input
                 id="order_name"
                 type="text"
-                placeholder="Enter Order Name"
                 value={orderName}
-                onChange={(e) => setOrderName(e.target.value)}
-                className="col-span-3"
+                readOnly // Make order name read-only
+                className="col-span-3 bg-gray-100 cursor-not-allowed"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -143,17 +142,16 @@ const TemplateCard = (item: TEMPLATE) => {
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4"> {/* New Price Field */}
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="price" className="text-right">
                 Price (USD)
               </Label>
               <Input
                 id="price"
-                type="number"
-                placeholder="Enter Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="col-span-3"
+                type="text"
+                value={`$${price}`}
+                readOnly // Make price read-only
+                className="col-span-3 bg-gray-100 cursor-not-allowed"
               />
             </div>
           </div>
