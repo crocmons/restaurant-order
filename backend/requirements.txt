@@ -10,3 +10,5 @@ groq
 ipython
 flask_sqlalchemy
 Gunicorn
+aws-wsgi
+stripe

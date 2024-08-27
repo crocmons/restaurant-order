@@ -3,23 +3,21 @@ import React, { useState } from 'react'
 import { TEMPLATE } from './TemplateListSection'
 import Image from 'next/image'
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
-
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import Link from 'next/link'
 
 const TemplateCard = (item: TEMPLATE) => {
-
   const [customerName, setCustomerName] = useState('')
   const [orderName, setOrderName] = useState('')
   const [quantity, setQuantity] = useState(0)
   const [dateAdded, setDateAdded] = useState('')
-  const [loading, setLoading] = useState(false)  
+  const [price, setPrice] = useState('') // New state for price
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const validateForm = () => {
-    if (!customerName || !orderName || !quantity || !dateAdded) {
+    if (!customerName || !orderName || !quantity || !dateAdded || !price) {  // Validate price as well
       setError('All fields are required.')
       return false
     }
@@ -30,36 +28,42 @@ const TemplateCard = (item: TEMPLATE) => {
   const handleClick = async () => {
     if (!validateForm()) return;
 
-    setLoading(true)
+    setLoading(true);
+
+    const priceInCents = Math.round(parseFloat(price) * 100); // Convert price to cents for stripe payment
+
     const orderData = {
-      customer_name: customerName,
-      quantity: quantity,
-      category: orderName,
-      date_added: dateAdded
-    }
+        customer_name: customerName,
+        quantity: quantity,
+        category: orderName,
+        date_added: dateAdded,
+        price: priceInCents // Send the price in cents
+    };
 
     try {
-      const response = await fetch('https://restaurant-order-2q76.onrender.com/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      })
+        const response = await fetch('https://restaurant-order-2q76.onrender.com/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
 
-      if (response.ok) {
-        console.log('Order added successfully!')
-        window.location.href = '/orders'
-      } else {
-        console.error('Failed to add the order.')
-      }
+        if (response.ok) {
+            const { url } = await response.json();
+            window.location.href = url;  // Redirect to Stripe Checkout page
+        } else {
+            const errorData = await response.json();
+            console.error('Failed to create checkout session:', errorData.error);
+        }
     } catch (error) {
-      console.error('Error:', error)
-    }finally {
-      setLoading(false)  
+        console.error('Error:', error);
+    } finally {
+        setLoading(false);
     }
-  }
+};
 
+  
   return (
     <div className='mx-auto p-3 md:p-4 rounded-lg shadow-lg flex flex-col cursor-pointer gap-2 md:gap-5 hover:scale-105 transition-all min-w-full md:w-full'>
       <Image
@@ -139,10 +143,23 @@ const TemplateCard = (item: TEMPLATE) => {
                 className="col-span-3"
               />
             </div>
+            <div className="grid grid-cols-4 items-center gap-4"> {/* New Price Field */}
+              <Label htmlFor="price" className="text-right">
+                Price (USD)
+              </Label>
+              <Input
+                id="price"
+                type="number"
+                placeholder="Enter Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
           </div>
-            {error && <p className="text-red-500 text-center">{error}</p>}
+          {error && <p className="text-red-500 text-center">{error}</p>}
           <DialogFooter>
-          <Button type="submit" onClick={handleClick} disabled={loading}>
+            <Button type="submit" onClick={handleClick} disabled={loading}>
               {loading ? 'Placing Order...' : 'Place Order'}
             </Button>
           </DialogFooter>

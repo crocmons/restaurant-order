@@ -16,9 +16,7 @@ import {
   Stack,
   Button,
 } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Link from 'next/link'
+
 
 const OrdersGrid = () => {
   const [orders, setOrders] = useState([])
@@ -39,10 +37,14 @@ const OrdersGrid = () => {
         setLoading(false)
       }
     }
-
+  
     fetchOrders()
+  
+    // Polling mechanism
+    const interval = setInterval(fetchOrders, 5000) // Poll every 5 seconds
+    return () => clearInterval(interval) // Cleanup on unmount
   }, [])
-
+  
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
   }
@@ -52,19 +54,7 @@ const OrdersGrid = () => {
     setPage(0)
   }
 
-  const handleClick = ()=>{
-    console.log('Button clicked')
-  }
-
-  const handleEditOpen = (order: any) => {
-    // handle the edit logic here
-    console.log('Edit order', order)
-  }
-
-  const deleteOrder = (orderId: number) => {
-    // handle the delete logic here
-    console.log('Delete order', orderId)
-  }
+ 
 
   if (loading) {
     return (
@@ -100,10 +90,10 @@ const OrdersGrid = () => {
               <h1 className="text-md font-bold">Quantity</h1>
             </TableCell>
             <TableCell align="left" style={{ minWidth: '100px' }}>
-              <h1 className="text-md font-bold">Order Date</h1>
+              <h1 className="text-md font-bold">Price</h1>
             </TableCell>
             <TableCell align="left" style={{ minWidth: '100px' }}>
-              <h1 className="text-md font-bold">Action</h1>
+              <h1 className="text-md font-bold">Order Date</h1>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -116,14 +106,9 @@ const OrdersGrid = () => {
                 <TableCell align="left" className="text-md text-black">{order.customer_name}</TableCell>
                 <TableCell align="left" className="text-md text-black">{order.category}</TableCell>
                 <TableCell align="left" className="text-md text-black">{order.quantity}</TableCell>
+                <TableCell align="left" className="text-md text-black">${(order.price / 100).toFixed(2)}</TableCell>
                 <TableCell align="left" className="text-md text-black">{order.date_added}</TableCell>
-                <TableCell align="left" className="text-md">
-                  <Stack spacing={2} direction="row">
-                       <Link href={'https://buy.stripe.com/test_bIY8zWflf9j96oUbII'} className='py-4 px-5 bg-red-500 text-white hover:bg-blue-600 rounded-md'>
-                         Pay Now
-                       </Link>
-                  </Stack>
-                </TableCell>
+                
               </TableRow>
             ))}
         </TableBody>

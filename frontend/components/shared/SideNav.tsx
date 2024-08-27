@@ -9,7 +9,7 @@ const SideNav = () => {
   const pathname = usePathname();
   return (
     <div className='h-screen relative p-5 shadow-sm border bg-gradient-br-to from-gray-500 via-gray-700 to-gray-600'>
-        <h1 className='text-xl p-2'>Restaurant Management System</h1>  
+        <h1 className='text-xl p-2 font-medium'>Order Management System</h1>  
     
 
         <div className='mt-10'>
