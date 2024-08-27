@@ -132,5 +132,5 @@ def payment_success():
     else:
         return jsonify({'error': 'Payment session or order ID not found.'}), 400
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
