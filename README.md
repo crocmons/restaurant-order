@@ -4,9 +4,13 @@ This project is a **Restaurant Order Management System** built using modern web 
 
 ## Features
 
-- **Order Form**: Users can place orders by providing their details, including customer name, order name, quantity, and order date.
+- **Search Items**: User can easily search their menu items and then place order.
+- **Order Form**: Users can place orders by providing their details, including customer name, order name, quantity, price and order date.
 - **Form Validation**: The form includes validation to ensure that all required fields are filled out before submission.
-- **Loader on Submission**: A loading spinner is displayed on the "Place Order" button when an order is being submitted.
+- **Stripe Payment**: When the user clicks the place order button it will redirect them to the stripe page and then they can pay from their payment gateway in real time.
+- **Redirect to Orders Page**: After Successful payment the user will redirect to their orders page they can see their all orders in real time .
+- **Pagination** : Added pagination in grid to give a better UI/UX.
+- **Loader on Submission**: A loading spinner is displayed on the Orders Page when an order is being submitted.
 - **Order Management**: View past orders and manage them through the backend.
 
 ## Technologies Used
@@ -21,6 +25,7 @@ This project is a **Restaurant Order Management System** built using modern web 
   - [Flask](https://flask.palletsprojects.com/): A lightweight WSGI web application framework for Python.
   - [SQLAlchemy](https://www.sqlalchemy.org/): The Python SQL toolkit and Object-Relational Mapping (ORM) library.
   - [SQLite](https://www.sqlite.org/): A C-language library that provides a lightweight disk-based database.
+  - Stripe for payment gateway
 
 ## Installation
 
