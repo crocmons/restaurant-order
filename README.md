@@ -1,6 +1,6 @@
 # Restaurant Order Management System
 
-This project is a **Restaurant Order Management System** built using modern web technologies, including **Next.js** for the frontend and **Flask** for the backend and **SQL** for database. It allows users to place, view, and manage restaurant orders efficiently.
+This project is a **Restaurant Order Management System** built using modern web technologies, including **Next.js** for the frontend and **Flask** for the backend and **SQL** for database also **Stripe** for the payment gateway in real time. It allows users to place, view, and manage restaurant orders efficiently.
 
 ## Features
 
