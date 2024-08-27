@@ -33,7 +33,7 @@ with app.app_context():
     db.create_all()
 
 # Route to add a new order item
-# Add logging in the add_item route
+# add_item route
 @app.route('/orders', methods=['POST'])
 def add_item():
     data = request.get_json()
